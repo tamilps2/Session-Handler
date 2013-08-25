@@ -24,7 +24,8 @@ class SessionHandler implements SessionHandlerInterface {
     /**
      * Assings the database Connection.
      * Start the session.
-     * 
+     *
+     * @param $sessiondb instance of the session database access class
      */
     public function __construct($sessiondb) {
       $this->sessiondb = $sessiondb;
