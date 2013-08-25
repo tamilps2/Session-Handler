@@ -39,11 +39,11 @@ class SessionHandler implements SessionHandlerInterface {
      * @param type $sessionId
      * @return boolean
      */
-	public function open($savePath, $sessionName) {
+    public function open($savePath, $sessionName) {
       $savePath = '';
       $sessionName = '';
       return true;
-	}
+    }
 	
     /**
      * Reads the session data if one exists for the given sessionId,
@@ -52,13 +52,13 @@ class SessionHandler implements SessionHandlerInterface {
      * @param type $sessionId - The session id to read.
      * @return string
      */
-	public function read($sessionId) {
+    public function read($sessionId) {
       $data = $this->sessiondb->readSessionData($sessionId);
       if ($data !== false) {
         return $data;
       }
       return '';
-	}
+    }
 	
     /**
      * Used to save the session and close.
@@ -68,10 +68,9 @@ class SessionHandler implements SessionHandlerInterface {
      * @param type $sessionData serialized session data
      * @return boolean
      */
-	public function write($sessionId, $sessionData) {
-      //echo "write $sessionId --- $sessionData<br/>";
+    public function write($sessionId, $sessionData) {
       $this->sessiondb->writeSessionData($sessionId, $sessionData);
-	}
+    }
 	
     /**
      * The garbage collector callback is invoked internally by PHP periodically
@@ -83,20 +82,20 @@ class SessionHandler implements SessionHandlerInterface {
      * @param string $maxLifeTime
      * @return boolean
      */
-	public function gc($maxLifeTime) {
+    public function gc($maxLifeTime) {
       $maxLifeTime = '';
       return true;
-	}
+    }
 	
     /**
      * Closes the session.
      * Called after the write method is called.
      * @return boolean
      */
-	public function close() {
+    public function close() {
       $this->sessiondb->close();
       return true;
-	}
+    }
 	
     /**
      * Removes all the data corresponding to the $sessionId.
@@ -104,11 +103,11 @@ class SessionHandler implements SessionHandlerInterface {
      * @param type $sessionId
      * @return boolean
      */
-	public function destroy($sessionId) {
+    public function destroy($sessionId) {
       if ($this->sessiondb->deleteSessionData($sessionId) !== false) {
         return true;
       }
       return false;
-	}
+    }
 }
 ?>
