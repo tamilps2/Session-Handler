@@ -67,7 +67,6 @@ class SessionHandler implements SessionHandlerInterface {
    * 
    * @param type $sessionId Id of the current session
    * @param type $sessionData serialized session data
-   * @return boolean
    */
   public function write($sessionId, $sessionData) {
     $this->sessiondb->writeSessionData($sessionId, $sessionData);
