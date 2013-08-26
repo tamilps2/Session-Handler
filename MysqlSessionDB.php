@@ -11,6 +11,11 @@ class MysqlSessionDB implements SessionDBInterface {
   private $dbConnection;
   
   /**
+   * Errors are displayed when this is set to true.
+   */
+  const SHOW_ERROR = true;
+  
+  /**
    * Stores the database connection.
    * 
    * @param type $mysqlConnection
@@ -27,7 +32,7 @@ class MysqlSessionDB implements SessionDBInterface {
    */
   public function readSessionData($sessionId) {
     $sessionDataQuery = "SELECT `data` 
-                         FROM `hbsession` 
+                         FROM `mssession` 
                          WHERE `id` = ?";
     $sessionData = $this->dbConnection->prepare(
                                 $sessionDataQuery);
@@ -41,7 +46,7 @@ class MysqlSessionDB implements SessionDBInterface {
       }
       $sessionData->close();
     } else {
-      if (HB_SessionHandler::SHOW_ERROR) {
+      if (self::SHOW_ERROR) {
         echo $sessionData->error;
       }
       return false;
@@ -57,7 +62,7 @@ class MysqlSessionDB implements SessionDBInterface {
     */
   public function writeSessionData($sessionId, $sessionData) {
     $storeDataQuery = "REPLACE INTO 
-                       `hbsession` (`id`, `data`, `last_access`)
+                       `mssession` (`id`, `data`, `last_access`)
                        VALUES(?, ?, ?)";
     $storeData = $this->dbConnection->prepare($storeDataQuery);
 
@@ -69,13 +74,13 @@ class MysqlSessionDB implements SessionDBInterface {
           return true;
         }
       } else {
-        if (HB_SessionHandler::SHOW_ERROR) {
+        if (self::SHOW_ERROR) {
           echo $storeData->error;
         }
       }
       $storeData->close();
     } else {
-      if (HB_SessionHandler::SHOW_ERROR) {
+      if (self::SHOW_ERROR) {
         echo $storeData->error;
       }
     }
@@ -89,7 +94,7 @@ class MysqlSessionDB implements SessionDBInterface {
     */
   public function deleteSessionData($sessionId) {
     $deleteSessionQuery = "DELETE 
-                           FROM `hbsession` 
+                           FROM `mssession` 
                            WHERE `id` = ?";
     $deleteSession = $this->dbConnection->prepare($deleteSessionQuery);
 
@@ -100,7 +105,7 @@ class MysqlSessionDB implements SessionDBInterface {
       }
       $deleteSession->close();
     } else {
-      if (HB_SessionHandler::SHOW_ERROR) {
+      if (self::SHOW_ERROR) {
         echo $deleteSession->error;
       }
     }
@@ -114,7 +119,7 @@ class MysqlSessionDB implements SessionDBInterface {
     */
   public function checkSession($sessionId) {
     $sessionCheckQuery = "SELECT `id`
-                        FROM `hbsession`
+                        FROM `mssession`
                         WHERE `id` = ? 
                         LIMIT 1";
     $sessionCheck = $this->dbConnection->prepare(
@@ -130,7 +135,7 @@ class MysqlSessionDB implements SessionDBInterface {
       }
       $sessionCheck->close();
     } else {
-      if (HB_SessionHandler::SHOW_ERROR) {
+      if (self::SHOW_ERROR) {
         echo $sessionCheck->error;
       }
       return false;

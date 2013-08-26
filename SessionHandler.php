@@ -17,11 +17,6 @@ class SessionHandler implements SessionHandlerInterface {
   private $sessiondb;
   
   /**
-   * Errors are displayed when this is set to true.
-   */
-  const SHOW_ERROR = true;
-  
-  /**
    * Assings the database Connection.
    * Start the session.
    *
