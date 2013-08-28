@@ -105,4 +105,3 @@ class SessionHandler implements SessionHandlerInterface {
     return false;
   }
 }
-?>

@@ -149,4 +149,3 @@ class MysqlSessionDB implements SessionDBInterface {
     $this->dbConnection->close();
   }
 }
-?>

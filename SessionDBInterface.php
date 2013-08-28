@@ -37,4 +37,3 @@ interface SessionDBInterface {
    */
   public function checkSession($sessionId);
 }
-?>
